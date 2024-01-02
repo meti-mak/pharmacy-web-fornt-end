@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Speech to Text</title>
+</head>
+<body>
+  <h1>Speech to Text</h1>
+
+  <button id="startButton">Start Recording</button>
+  <button id="stopButton">Stop Recording</button>
+
+  <div id="output"></div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://www.google.com/jsapi"></script>
+  <script>
+    google.load("speech", "1");
+
+    var recognition;
+
+    function startRecording() {
+      recognition = new google.speech.SpeechRecognition();
+      recognition.onresult = function(event) {
+        var transcript = event.results[0][0].transcript;
+        document.getElementById("output").innerHTML = transcript;
+      };
+      recognition.start();
+    }
+
+    function stopRecording() {
+      recognition.stop();
+    }
+
+    document.getElementById("startButton").addEventListener("click", startRecording);
+    document.getElementById("stopButton").addEventListener("click", stopRecording);
+  </script>
+</body>
+</html>
